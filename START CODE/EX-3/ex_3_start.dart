@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+//Answer the questions
+//Q1 I need to keep an Integer because it represent current index of list image 
+//Q2 I wrapped scaffold widget.
+
+
 List<String> images = [
   "assets/w4-s2/bird.jpg",
   "assets/w4-s2/bird2.jpg",
@@ -7,6 +12,8 @@ List<String> images = [
   "assets/w4-s2/girl.jpg",
   "assets/w4-s2/man.jpg",
 ];
+
+
 
 void main() => runApp(
   MaterialApp(
