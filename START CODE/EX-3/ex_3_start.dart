@@ -8,29 +8,63 @@ List<String> images = [
   "assets/w4-s2/man.jpg",
 ];
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false, // Why this line ? Can you explain it ?
-      home: Scaffold(
-        backgroundColor: Colors.green[50],
-        appBar: AppBar(
-          backgroundColor: Colors.green[400],
-          title: const Text('Image viewer'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.navigate_before),
-              tooltip: 'Go to the previous image',
-              onPressed: () => {},
+void main() => runApp(
+  MaterialApp(
+    debugShowCheckedModeBanner: false, // Why this line ? Can you explain it ?
+    home: const ImageViews(),
+  ),
+);
+
+class ImageViews extends StatefulWidget {
+  const ImageViews({super.key});
+
+  @override
+  State<ImageViews> createState() => _ImageViewsState();
+}
+
+class _ImageViewsState extends State<ImageViews> {
+  int startIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.green[50],
+      appBar: AppBar(
+        backgroundColor: Colors.green[400],
+        title: const Text('Image viewer'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.navigate_before),
+            tooltip: 'Go to the previous image',
+            onPressed: () {
+              setState(() {
+                if (startIndex == 0) {
+                  startIndex = images.length - 1;
+                } else {
+                  startIndex--;
+                }
+              });
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
+            child: IconButton(
+              icon: const Icon(Icons.navigate_next),
+              tooltip: 'Go to the next image',
+              onPressed: () => {
+                setState(() {
+                  if (startIndex == images.length - 1) {
+                    startIndex = 0;
+                  } else {
+                    startIndex++;
+                  }
+                }),
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
-              child: IconButton(
-                icon: const Icon(Icons.navigate_next),
-                tooltip: 'Go to the next image',
-                onPressed: () => {},
-              ),
-            ),
-          ],
-        ),
-        body: Image.asset(images[0]),
+          ),
+        ],
       ),
-    ));
+      body: Image.asset(images[startIndex]),
+    );
+  }
+}
